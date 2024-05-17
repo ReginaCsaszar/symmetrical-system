@@ -4,12 +4,14 @@ BUILD C++ PROJECTS INTO WASM
 - for windows
 - you'll need python3, emscripten, cmake, ninja
 - pull an opencv repo in here 
-- use build_opencv_wasm.ps1, or
 
--- emscripten setup:
+
+-- emscripten setup: go to your emsdk folder, then
 
 emsdk.bat activate latest
 emsdk_env.bat
+
+- use build_opencv_wasm.ps1 or
 
 -- use opencv/CMakeLists.txt to set build flags
 -- sample build here: https://blog.seeso.io/face-detection-on-web-tflite-wasm-simd-462975e0f628
@@ -22,5 +24,7 @@ ninja
 ninja install
 
 - put files to their place with copy_target_files.ps1
-- copy your cpp project to the include folder here
-- modify build_project_wasm.ps1 to contain your files & run
+- copy your cpp file to the include folder
+
+
+em++ -I target/include -L include/image2.cpp -o include/image2.js -O3 -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1

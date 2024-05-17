@@ -1,0 +1,9 @@
+emscripten setup:
+
+emsdk.bat activate latest
+emsdk_env.bat
+
+use opencv/CMakeLists.txt to set build flags
+
+sample build:
+(https://blog.seeso.io/face-detection-on-web-tflite-wasm-simd-462975e0f628)

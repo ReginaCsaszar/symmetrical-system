@@ -1,0 +1,46 @@
+<html>
+  <body>
+    <canvas id="Canvas"></canvas>
+    <canvas id="Canvas2" width="400px" height="400px"></canvas>
+  </body>
+  <script src="image2.js"></script>
+  <script>
+   let matin, matout;
+   function loadImageToCanvas(url, cavansId) {
+     let canvas = document.getElementById(cavansId);
+     let ctx = canvas.getContext('2d');
+     let img = new Image();
+     img.crossOrigin = 'anonymous';
+     img.onload = function() {
+       canvas.width = img.width;
+       canvas.height = img.height;
+       ctx.drawImage(img, 0, 0, img.width, img.height);
+       matin = new Module.Mat(img.height, img.width)
+       matout = new Module.Mat(img.height, img.width)
+       /* matin = new Module.Mat(img.width, img.height)
+        * matout = new Module.Mat(img.width, img.height) */
+     };
+     img.src = url;
+   };
+   window.addEventListener('load', function(){
+     loadImageToCanvas("image.jpg", "Canvas")
+   },false);
+   function passImage() {
+     let canvas = document.getElementById("Canvas");
+     let ctx = canvas.getContext("2d");
+     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+     matin.data.set(imgData.data) 
+     Module.cannyImage(matin, matout)
+
+     const resultImg = new ImageData(new Uint8ClampedArray(matout.data), matout.cols, matout.rows)
+
+     let canvas2 = document.getElementById("Canvas2");
+
+     let ctx2 = canvas2.getContext("2d");
+     ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+     ctx2.putImageData(resultImg,0,0);
+     
+   }
+   setTimeout(passImage,200)
+  </script>
+</html>

@@ -29,8 +29,15 @@ ninja install
 
 - build from terminal
 
-em++ -I target/include -L include/image2.cpp target/lib/libopencv_world.a -o include/image2.js -O3 -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 -- bind -v
+em++ -I target/include -L include/image2.cpp target/lib/libopencv_world.a -o include/image2.js -O3 -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 -lembind -v
 
-- build w cmake
+- build w cmake (cd build)
 
-emcmake cmake -DCMAKE_CXX_FLAGS="-pthread -s INITIAL_MEMORY=134217728" -DTFLITE_WITH_WASM_SIMD=[ON] -DCMAKE_BUILD_TYPE=[Release]
+emcmake cmake .. -DCMAKE_CXX_FLAGS="-pthread -s INITIAL_MEMORY=134217728" -DCMAKE_BUILD_TYPE=Release
+
+ninja
+
+cd ../incude
+http-server
+
+- open http://localhost:8080/webcam2.html

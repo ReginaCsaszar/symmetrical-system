@@ -1,14 +1,16 @@
-# Activate the latest Emscripten SDK
-emsdk.bat activate latest
+# Set current directory for project directory
+$projectDir = Get-Location.Path
 
-# Set up the Emscripten environment variables
+# Activate emsdk
+Set-Location ..\..\emsdk
+emsdk.bat activate latest
 emsdk_env.bat
 
-# Create a directory for the CMake build (replace 'opencv' with your actual directory name)
-New-Item -ItemType Directory -Path "opencv\cmake-build-wasm"
+# Create build directory and move to it
+Set-Location &projectDir
 
-# Move to the build directory
-Set-Location "opencv\cmake-build-wasm"
+New-Item -ItemType Directory -Path "opencv\build-0527"
+Set-Location "opencv\build_0527"
 
 # Generate CMake build files with desired options
 emcmake cmake .. \
@@ -37,14 +39,12 @@ emcmake cmake .. \
   -DBUILD_opencv_js_bindings_generator=OFF \
   -DBUILD_opencv_ml=OFF \
   -DBUILD_opencv_objc_bindings_generator=OFF \
-  -DBUILD_opencv_objdetect=OFF \
   -DBUILD_opencv_photo=OFF \
   -DBUILD_opencv_python_bindings_generator=OFF \
   -DBUILD_opencv_python_tests=OFF \
   -DBUILD_opencv_stitching=OFF \
   -DBUILD_opencv_ts=OFF \
-  -DBUILD_opencv_video=OFF \
-  -DBUILD_opencv_videoio=OFF \
+   -DBUILD_opencv_videoio=OFF \
   -DBUILD_opencv_world=ON \
   -DCV_ENABLE_INTRINSICS=OFF \
   -DOPENCV_DNN_OPENCL=OFF \
@@ -80,4 +80,4 @@ ninja
 #copy generated files on their dedicated place
 ninja install
 
-#Read-Host
+Read-Host

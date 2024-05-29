@@ -32,7 +32,17 @@ ninja install
 
 em++ -I target/include -L include/image2.cpp target/lib/libopencv_world.a -o include/image2.js -O3 -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 -lembind -v
 
-- build w cmake (cd build)
+em++ include/anti_0527/web_main.cpp include/anti_0527/Engine.cpp include/anti_0527/FaceDrawer.cpp include/anti_0527/Resource.cpp include/anti_0527/Utils.cpp include/anti_0527/Configuration.cpp include/anti_0527/FaceMesh.cpp include/anti_0527/CvUtils.cpp include/anti_0527/NeuralBase.cpp include/anti_0527/FaceDetectorYunet.cpp -o include/anti_0527/makeup.js -I target\include -L target\lib -lopencv_world -llibpng -lzlib -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 --bind
+
+em++ include/anti_0527/web_main.cpp include/anti_0527/Engine.cpp include/anti_0527/FaceDrawer.cpp include/anti_0527/Resource.cpp include/anti_0527/Utils.cpp include/anti_0527/Configuration.cpp include/anti_0527/FaceMesh.cpp include/anti_0527/CvUtils.cpp include/anti_0527/NeuralBase.cpp include/anti_0527/FaceDetectorYunet.cpp -o include/anti_0527/makeup.js --preload-file include/anti_0527/resources.bin -I target\include -L target\lib -llibjpeg-turbo -llibopenjp2 -lopencv_world -llibpng -lzlib -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 --bind
+
+emcc hello.cpp -o hello.html --preload-file hello.txt -s EXIT_RUNTIME=1
+
+-- 05.28
+
+em++ web_main.cpp Engine.cpp FaceDrawer.cpp Resource.cpp Utils.cpp Configuration.cpp FaceMesh.cpp CvUtils.cpp NeuralBase.cpp FaceDetectorYunet.cpp -o makeup.js -I target\include -L target\lib -lopencv_world -llibjpeg-turbo -llibopenjp2 -llibpng -lzlib -s NO_EXIT_RUNTIME=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" -s ASSERTIONS=1 -lembind --preload-file resources.bin
+
+- build w cmake (outdated)
 
 emcmake cmake .. -DCMAKE_CXX_FLAGS="-pthread -s INITIAL_MEMORY=134217728" -DCMAKE_BUILD_TYPE=Release
 
